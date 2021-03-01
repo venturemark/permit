@@ -1,2 +1,2 @@
-# permit
+# permission
 permission model abstraction
