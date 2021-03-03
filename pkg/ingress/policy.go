@@ -20,9 +20,10 @@ var (
 		"po003": {subject.IsResourceOwner, action.Delete},
 		"po004": {subject.IsResourceOwner, action.Update},
 
-		// A resource member can search private resources.
-		"po005": {subject.IsResourceMember, action.Search, visibility.Private},
+		// A venture member can search private resources for that venture.
+		"po005": {subject.IsVentureMember, action.Search, visibility.Private},
 
+		// A venture member can create resources for that venture.
 		"po006": {subject.IsVentureMember, action.Create, resource.Timeline},
 		"po007": {subject.IsVentureMember, action.Create, resource.Message},
 		"po008": {subject.IsVentureMember, action.Create, resource.Update},
