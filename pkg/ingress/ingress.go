@@ -1,13 +1,15 @@
 package ingress
 
-import "github.com/venturemark/permission/pkg/label"
+import (
+	"github.com/venturemark/permission/pkg/label"
+)
 
 type Config struct {
-	Policy map[string][]label.Label
+	Policy [][]label.Label
 }
 
 type Incoming struct {
-	policy map[string][]label.Label
+	policy [][]label.Label
 }
 
 func New(config Config) (*Incoming, error) {
@@ -23,8 +25,8 @@ func New(config Config) (*Incoming, error) {
 }
 
 func (i *Incoming) Match(l ...label.Label) bool {
-	for _, _l := range i.policy {
-		if equal(l, _l) {
+	for _, p := range i.policy {
+		if equal(p, l) {
 			return true
 		}
 	}
