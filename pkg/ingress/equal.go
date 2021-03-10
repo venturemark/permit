@@ -1,6 +1,8 @@
 package ingress
 
-import "github.com/venturemark/permission/pkg/label"
+import (
+	"github.com/venturemark/permission/pkg/label"
+)
 
 func equal(a []label.Label, b []label.Label) bool {
 	if a != nil && b == nil {
@@ -19,7 +21,12 @@ func equal(a []label.Label, b []label.Label) bool {
 		var f bool
 
 		for _, y := range b {
-			if x == y {
+			if x.Group() == y.Group() && x.IsAny() {
+				f = true
+				break
+			}
+
+			if x.Equal(y) {
 				f = true
 				break
 			}
