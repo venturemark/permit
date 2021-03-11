@@ -18,12 +18,12 @@ type Config struct {
 	Redigo redigo.Interface
 }
 
-type Resource struct {
+type Resolver struct {
 	logger logger.Interface
 	redigo redigo.Interface
 }
 
-func New(config Config) (*Resource, error) {
+func New(config Config) (*Resolver, error) {
 	if config.Logger == nil {
 		return nil, tracer.Maskf(invalidConfigError, "%T.Logger must not be empty", config)
 	}
@@ -31,7 +31,7 @@ func New(config Config) (*Resource, error) {
 		return nil, tracer.Maskf(invalidConfigError, "%T.Redigo must not be empty", config)
 	}
 
-	r := &Resource{
+	r := &Resolver{
 		logger: config.Logger,
 		redigo: config.Redigo,
 	}
@@ -39,7 +39,7 @@ func New(config Config) (*Resource, error) {
 	return r, nil
 }
 
-func (r *Resource) Role(met map[string]string) (label.Label, error) {
+func (r *Resolver) Role(met map[string]string) (label.Label, error) {
 	var rok *key.Key
 	{
 		rok = key.Role(message(met))
@@ -74,7 +74,7 @@ func (r *Resource) Role(met map[string]string) (label.Label, error) {
 	return label.Label(rol.Obj.Metadata[metadata.RoleKind]), nil
 }
 
-func (r *Resource) Visibility(met map[string]string) (label.Label, error) {
+func (r *Resolver) Visibility(met map[string]string) (label.Label, error) {
 	var mek *key.Key
 	{
 		mek = key.Message(met)

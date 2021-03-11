@@ -1,4 +1,4 @@
-package resource
+package resolver
 
 import (
 	"github.com/xh3b4sd/logger"
@@ -6,9 +6,9 @@ import (
 	"github.com/xh3b4sd/tracer"
 
 	"github.com/venturemark/permission"
-	"github.com/venturemark/permission/pkg/resource/message"
-	"github.com/venturemark/permission/pkg/resource/timeline"
-	"github.com/venturemark/permission/pkg/resource/update"
+	"github.com/venturemark/permission/pkg/resolver/message"
+	"github.com/venturemark/permission/pkg/resolver/timeline"
+	"github.com/venturemark/permission/pkg/resolver/update"
 )
 
 type Config struct {
@@ -16,16 +16,16 @@ type Config struct {
 	Redigo redigo.Interface
 }
 
-type Resource struct {
-	message  *message.Resource
-	timeline *timeline.Resource
-	update   *update.Resource
+type Resolver struct {
+	message  *message.Resolver
+	timeline *timeline.Resolver
+	update   *update.Resolver
 }
 
-func New(config Config) (*Resource, error) {
+func New(config Config) (*Resolver, error) {
 	var err error
 
-	var messageResource *message.Resource
+	var messageResource *message.Resolver
 	{
 		c := message.Config{
 			Logger: config.Logger,
@@ -38,7 +38,7 @@ func New(config Config) (*Resource, error) {
 		}
 	}
 
-	var timelineResource *timeline.Resource
+	var timelineResource *timeline.Resolver
 	{
 		c := timeline.Config{
 			Logger: config.Logger,
@@ -51,7 +51,7 @@ func New(config Config) (*Resource, error) {
 		}
 	}
 
-	var updateResource *update.Resource
+	var updateResource *update.Resolver
 	{
 		c := update.Config{
 			Logger: config.Logger,
@@ -64,7 +64,7 @@ func New(config Config) (*Resource, error) {
 		}
 	}
 
-	r := &Resource{
+	r := &Resolver{
 		message:  messageResource,
 		timeline: timelineResource,
 		update:   updateResource,
@@ -73,14 +73,14 @@ func New(config Config) (*Resource, error) {
 	return r, nil
 }
 
-func (g *Resource) Message() permission.Resolver {
-	return g.message
+func (r *Resolver) Message() permission.Resolver {
+	return r.message
 }
 
-func (g *Resource) Timeline() permission.Resolver {
-	return g.timeline
+func (r *Resolver) Timeline() permission.Resolver {
+	return r.timeline
 }
 
-func (g *Resource) Update() permission.Resolver {
-	return g.update
+func (r *Resolver) Update() permission.Resolver {
+	return r.update
 }
