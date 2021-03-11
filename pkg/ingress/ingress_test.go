@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+
 	"github.com/venturemark/permission"
 	"github.com/venturemark/permission/pkg/label"
 	"github.com/venturemark/permission/pkg/label/action"
@@ -105,6 +106,15 @@ func Test_Ingress_Match_false(t *testing.T) {
 				action.Update,
 				visibility.Public,
 				resource.Venture,
+			},
+		},
+		// Case 12
+		{
+			l: []label.Label{
+				"",
+				action.Create,
+				visibility.Private,
+				resource.Message,
 			},
 		},
 	}
