@@ -26,7 +26,7 @@ func equal(a []label.Label, b []label.Label) bool {
 				break
 			}
 
-			if x.Equal(y) {
+			if x == y {
 				f = true
 				break
 			}
