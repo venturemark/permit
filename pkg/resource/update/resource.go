@@ -31,15 +31,15 @@ func New(config Config) (*Resource, error) {
 		return nil, tracer.Maskf(invalidConfigError, "%T.Redigo must not be empty", config)
 	}
 
-	p := &Resource{
+	r := &Resource{
 		logger: config.Logger,
 		redigo: config.Redigo,
 	}
 
-	return p, nil
+	return r, nil
 }
 
-func (p *Resource) Role(met map[string]string) (label.Label, error) {
+func (r *Resource) Role(met map[string]string) (label.Label, error) {
 	var rok *key.Key
 	{
 		rok = key.Role(update(met))
@@ -55,7 +55,7 @@ func (p *Resource) Role(met map[string]string) (label.Label, error) {
 		k := rok.List()
 		s := usi
 
-		str, err := p.redigo.Sorted().Search().Index(k, s)
+		str, err := r.redigo.Sorted().Search().Index(k, s)
 		if err != nil {
 			return "", tracer.Mask(err)
 		}
@@ -74,7 +74,7 @@ func (p *Resource) Role(met map[string]string) (label.Label, error) {
 	return label.Label(rol.Obj.Metadata[metadata.RoleKind]), nil
 }
 
-func (p *Resource) Visibility(met map[string]string) (label.Label, error) {
+func (r *Resource) Visibility(met map[string]string) (label.Label, error) {
 	var mek *key.Key
 	{
 		mek = key.Update(met)
@@ -85,7 +85,7 @@ func (p *Resource) Visibility(met map[string]string) (label.Label, error) {
 		k := mek.List()
 		s := mek.ID().F()
 
-		str, err := p.redigo.Sorted().Search().Score(k, s, s)
+		str, err := r.redigo.Sorted().Search().Score(k, s, s)
 		if err != nil {
 			return "", tracer.Mask(err)
 		}
