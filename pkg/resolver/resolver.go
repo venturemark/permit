@@ -25,49 +25,49 @@ type Resolver struct {
 func New(config Config) (*Resolver, error) {
 	var err error
 
-	var messageResource *message.Resolver
+	var messageResolver *message.Resolver
 	{
 		c := message.Config{
 			Logger: config.Logger,
 			Redigo: config.Redigo,
 		}
 
-		messageResource, err = message.New(c)
+		messageResolver, err = message.New(c)
 		if err != nil {
 			return nil, tracer.Mask(err)
 		}
 	}
 
-	var timelineResource *timeline.Resolver
+	var timelineResolver *timeline.Resolver
 	{
 		c := timeline.Config{
 			Logger: config.Logger,
 			Redigo: config.Redigo,
 		}
 
-		timelineResource, err = timeline.New(c)
+		timelineResolver, err = timeline.New(c)
 		if err != nil {
 			return nil, tracer.Mask(err)
 		}
 	}
 
-	var updateResource *update.Resolver
+	var updateResolver *update.Resolver
 	{
 		c := update.Config{
 			Logger: config.Logger,
 			Redigo: config.Redigo,
 		}
 
-		updateResource, err = update.New(c)
+		updateResolver, err = update.New(c)
 		if err != nil {
 			return nil, tracer.Mask(err)
 		}
 	}
 
 	r := &Resolver{
-		message:  messageResource,
-		timeline: timelineResource,
-		update:   updateResource,
+		message:  messageResolver,
+		timeline: timelineResolver,
+		update:   updateResolver,
 	}
 
 	return r, nil
