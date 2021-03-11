@@ -9,8 +9,6 @@ import (
 	"github.com/xh3b4sd/logger"
 	"github.com/xh3b4sd/redigo"
 	"github.com/xh3b4sd/tracer"
-
-	"github.com/venturemark/permission/pkg/label"
 )
 
 type Config struct {
@@ -39,7 +37,7 @@ func New(config Config) (*Resolver, error) {
 	return r, nil
 }
 
-func (r *Resolver) Role(met map[string]string) (label.Label, error) {
+func (r *Resolver) Role(met map[string]string) (string, error) {
 	var rok *key.Key
 	{
 		rok = key.Role(update(met))
@@ -71,10 +69,10 @@ func (r *Resolver) Role(met map[string]string) (label.Label, error) {
 		}
 	}
 
-	return label.Label(rol.Obj.Metadata[metadata.RoleKind]), nil
+	return rol.Obj.Metadata[metadata.RoleKind], nil
 }
 
-func (r *Resolver) Visibility(met map[string]string) (label.Label, error) {
+func (r *Resolver) Visibility(met map[string]string) (string, error) {
 	var mek *key.Key
 	{
 		mek = key.Update(met)
@@ -101,7 +99,7 @@ func (r *Resolver) Visibility(met map[string]string) (label.Label, error) {
 		}
 	}
 
-	return label.Label(mes.Obj.Metadata[metadata.ResourceVisibility]), nil
+	return mes.Obj.Metadata[metadata.ResourceVisibility], nil
 }
 
 func update(met map[string]string) map[string]string {

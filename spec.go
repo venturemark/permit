@@ -18,6 +18,6 @@ type Resource interface {
 }
 
 type Resolver interface {
-	Role(met map[string]string) (label.Label, error)
-	Visibility(met map[string]string) (label.Label, error)
+	Role(met map[string]string) (string, error)
+	Visibility(met map[string]string) (string, error)
 }
