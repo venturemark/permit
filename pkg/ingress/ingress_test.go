@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+
 	"github.com/venturemark/permission"
 	"github.com/venturemark/permission/pkg/label"
 	"github.com/venturemark/permission/pkg/label/action"
@@ -107,6 +108,35 @@ func Test_Ingress_Match_false(t *testing.T) {
 				resource.Venture,
 			},
 		},
+		// Case 12
+		{
+			l: []label.Label{
+				"",
+				action.Create,
+				visibility.Private,
+				resource.Message,
+			},
+		},
+		// Case 13
+		{
+			l: []label.Label{
+				role.Owner,
+				action.Update,
+				visibility.Private,
+				"",
+			},
+		},
+		// Case 14
+		{
+			l: []label.Label{
+				resource.Message,
+				resource.Update,
+				resource.Venture,
+				visibility.Any,
+				action.Create,
+				role.Owner,
+			},
+		},
 	}
 
 	for i, tc := range testCases {
@@ -196,6 +226,24 @@ func Test_Ingress_Match_true(t *testing.T) {
 				visibility.Private,
 				action.Create,
 				role.Member,
+			},
+		},
+		// Case 7
+		{
+			l: []label.Label{
+				resource.Message,
+				visibility.Any,
+				action.Create,
+				role.Owner,
+			},
+		},
+		// Case 8
+		{
+			l: []label.Label{
+				resource.Update,
+				visibility.Private,
+				action.Search,
+				role.Owner,
 			},
 		},
 	}
