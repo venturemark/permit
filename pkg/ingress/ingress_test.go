@@ -237,6 +237,15 @@ func Test_Ingress_Match_true(t *testing.T) {
 				role.Owner,
 			},
 		},
+		// Case 8
+		{
+			l: []label.Label{
+				resource.Update,
+				visibility.Private,
+				action.Search,
+				role.Owner,
+			},
+		},
 	}
 
 	for i, tc := range testCases {
