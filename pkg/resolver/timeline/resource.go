@@ -78,7 +78,7 @@ func (r *Resolver) Visibility(met map[string]string) (string, error) {
 		mek = key.Timeline(met)
 	}
 
-	var mes *schema.Timeline
+	var tim *schema.Timeline
 	{
 		k := mek.List()
 		s := mek.ID().F()
@@ -92,14 +92,14 @@ func (r *Resolver) Visibility(met map[string]string) (string, error) {
 			return "", nil
 		}
 
-		mes = &schema.Timeline{}
-		err = json.Unmarshal([]byte(str[0]), mes)
+		tim = &schema.Timeline{}
+		err = json.Unmarshal([]byte(str[0]), tim)
 		if err != nil {
 			return "", tracer.Mask(err)
 		}
 	}
 
-	return mes.Obj.Metadata[metadata.ResourceVisibility], nil
+	return tim.Obj.Metadata[metadata.ResourceVisibility], nil
 }
 
 func timeline(met map[string]string) map[string]string {
