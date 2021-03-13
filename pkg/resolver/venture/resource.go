@@ -1,4 +1,4 @@
-package update
+package venture
 
 import (
 	"encoding/json"
@@ -40,7 +40,7 @@ func New(config Config) (*Resolver, error) {
 func (r *Resolver) Role(met map[string]string) (string, error) {
 	var rok *key.Key
 	{
-		rok = key.Role(update(met))
+		rok = key.Role(venture(met))
 	}
 
 	var usi string
@@ -75,10 +75,10 @@ func (r *Resolver) Role(met map[string]string) (string, error) {
 func (r *Resolver) Visibility(met map[string]string) (string, error) {
 	var mek *key.Key
 	{
-		mek = key.Update(met)
+		mek = key.Venture(met)
 	}
 
-	var upd *schema.Update
+	var ven *schema.Venture
 	{
 		k := mek.List()
 		s := mek.ID().F()
@@ -92,24 +92,24 @@ func (r *Resolver) Visibility(met map[string]string) (string, error) {
 			return "", nil
 		}
 
-		upd = &schema.Update{}
-		err = json.Unmarshal([]byte(str[0]), upd)
+		ven = &schema.Venture{}
+		err = json.Unmarshal([]byte(str[0]), ven)
 		if err != nil {
 			return "", tracer.Mask(err)
 		}
 	}
 
-	return upd.Obj.Metadata[metadata.ResourceVisibility], nil
+	return ven.Obj.Metadata[metadata.ResourceVisibility], nil
 }
 
-func update(met map[string]string) map[string]string {
+func venture(met map[string]string) map[string]string {
 	cop := map[string]string{}
 
 	for k, v := range met {
 		cop[k] = v
 	}
 
-	cop[metadata.ResourceKind] = "update"
+	cop[metadata.ResourceKind] = "venture"
 
 	return cop
 }
