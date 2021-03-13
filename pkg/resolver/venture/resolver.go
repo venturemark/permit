@@ -80,20 +80,19 @@ func (r *Resolver) Visibility(met map[string]string) (string, error) {
 
 	var ven *schema.Venture
 	{
-		k := mek.List()
-		s := mek.ID().F()
+		k := mek.Elem()
 
-		str, err := r.redigo.Sorted().Search().Score(k, s, s)
+		str, err := r.redigo.Simple().Search().Value(k)
 		if err != nil {
 			return "", tracer.Mask(err)
 		}
 
-		if len(str) == 0 {
+		if str == "" {
 			return "", nil
 		}
 
 		ven = &schema.Venture{}
-		err = json.Unmarshal([]byte(str[0]), ven)
+		err = json.Unmarshal([]byte(str), ven)
 		if err != nil {
 			return "", tracer.Mask(err)
 		}
