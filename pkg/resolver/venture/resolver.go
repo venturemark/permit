@@ -47,6 +47,9 @@ func (r *Resolver) Role(met map[string]string) (string, error) {
 	var sui string
 	{
 		sui = met[metadata.SubjectID]
+		if sui == "" {
+			return "", nil
+		}
 	}
 
 	var rol *schema.Role
