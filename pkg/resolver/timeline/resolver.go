@@ -43,15 +43,18 @@ func (r *Resolver) Role(met map[string]string) (string, error) {
 		rok = key.Role(timeline(met))
 	}
 
-	var usi string
+	var sui string
 	{
-		usi = met[metadata.UserID]
+		sui = met[metadata.SubjectID]
+		if sui == "" {
+			sui = met[metadata.UserID]
+		}
 	}
 
 	var rol *schema.Role
 	{
 		k := rok.List()
-		s := usi
+		s := sui
 
 		str, err := r.redigo.Sorted().Search().Index(k, s)
 		if err != nil {

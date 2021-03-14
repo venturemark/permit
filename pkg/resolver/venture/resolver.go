@@ -8,6 +8,7 @@ import (
 	"github.com/venturemark/apicommon/pkg/schema"
 	"github.com/xh3b4sd/logger"
 	"github.com/xh3b4sd/redigo"
+	"github.com/xh3b4sd/redigo/pkg/simple"
 	"github.com/xh3b4sd/tracer"
 )
 
@@ -43,15 +44,18 @@ func (r *Resolver) Role(met map[string]string) (string, error) {
 		rok = key.Role(venture(met))
 	}
 
-	var usi string
+	var sui string
 	{
-		usi = met[metadata.UserID]
+		sui = met[metadata.SubjectID]
+		if sui == "" {
+			sui = met[metadata.UserID]
+		}
 	}
 
 	var rol *schema.Role
 	{
 		k := rok.List()
-		s := usi
+		s := sui
 
 		str, err := r.redigo.Sorted().Search().Index(k, s)
 		if err != nil {
@@ -73,22 +77,20 @@ func (r *Resolver) Role(met map[string]string) (string, error) {
 }
 
 func (r *Resolver) Visibility(met map[string]string) (string, error) {
-	var mek *key.Key
+	var vek *key.Key
 	{
-		mek = key.Venture(met)
+		vek = key.Venture(met)
 	}
 
 	var ven *schema.Venture
 	{
-		k := mek.Elem()
+		k := vek.Elem()
 
 		str, err := r.redigo.Simple().Search().Value(k)
-		if err != nil {
-			return "", tracer.Mask(err)
-		}
-
-		if str == "" {
+		if simple.IsNotFound(err) {
 			return "", nil
+		} else if err != nil {
+			return "", tracer.Mask(err)
 		}
 
 		ven = &schema.Venture{}
