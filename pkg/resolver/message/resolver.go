@@ -45,9 +45,9 @@ func (r *Resolver) Role(met map[string]string) (string, error) {
 
 	var sui string
 	{
-		sui = met[metadata.UserID]
+		sui = met[metadata.SubjectID]
 		if sui == "" {
-			sui = met[metadata.SubjectID]
+			sui = met[metadata.UserID]
 		}
 	}
 
