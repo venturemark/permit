@@ -137,6 +137,15 @@ func Test_Ingress_Match_false(t *testing.T) {
 				role.Owner,
 			},
 		},
+		// Case 15
+		{
+			l: []label.Label{
+				resource.Timeline,
+				visibility.Private,
+				action.Search,
+				role.Subject,
+			},
+		},
 	}
 
 	for i, tc := range testCases {
@@ -251,7 +260,7 @@ func Test_Ingress_Match_true(t *testing.T) {
 			l: []label.Label{
 				resource.Timeline,
 				visibility.Private,
-				action.Search,
+				action.Filter,
 				role.Subject,
 			},
 		},
@@ -260,7 +269,7 @@ func Test_Ingress_Match_true(t *testing.T) {
 			l: []label.Label{
 				resource.Message,
 				visibility.Public,
-				action.Search,
+				action.Filter,
 				role.Subject,
 			},
 		},

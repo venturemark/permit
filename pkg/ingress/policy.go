@@ -18,12 +18,13 @@ var (
 		{role.Owner /*****/, action.Create /***/, visibility.Any /*******/, resource.Update /*****/},
 		{role.Owner /*****/, action.Create /***/, visibility.Any /*******/, resource.Timeline /***/},
 
+		{role.Subject /***/, action.Filter /***/, visibility.Any /*******/, resource.Any /********/},
+
 		{role.Owner /*****/, action.Delete /***/, visibility.Any /*******/, resource.Any /********/},
 
 		{role.Any /*******/, action.Search /***/, visibility.Public /****/, resource.Any /********/},
 		{role.Member /****/, action.Search /***/, visibility.Private /***/, resource.Any /********/},
 		{role.Owner /*****/, action.Search /***/, visibility.Private /***/, resource.Any /********/},
-		{role.Subject /***/, action.Search /***/, visibility.Any /*******/, resource.Any /********/},
 
 		{role.Owner /*****/, action.Update /***/, visibility.Any /*******/, resource.Any /********/},
 	}
