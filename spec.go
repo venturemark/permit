@@ -15,6 +15,7 @@ type Resource interface {
 	Message() Resolver
 	Timeline() Resolver
 	Update() Resolver
+	User() Resolver
 	Venture() Resolver
 }
 

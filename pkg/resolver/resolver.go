@@ -9,6 +9,7 @@ import (
 	"github.com/venturemark/permission/pkg/resolver/message"
 	"github.com/venturemark/permission/pkg/resolver/timeline"
 	"github.com/venturemark/permission/pkg/resolver/update"
+	"github.com/venturemark/permission/pkg/resolver/user"
 	"github.com/venturemark/permission/pkg/resolver/venture"
 )
 
@@ -21,6 +22,7 @@ type Resolver struct {
 	message  *message.Resolver
 	timeline *timeline.Resolver
 	update   *update.Resolver
+	user     *user.Resolver
 	venture  *venture.Resolver
 }
 
@@ -66,6 +68,19 @@ func New(config Config) (*Resolver, error) {
 		}
 	}
 
+	var userResolver *user.Resolver
+	{
+		c := user.Config{
+			Logger: config.Logger,
+			Redigo: config.Redigo,
+		}
+
+		userResolver, err = user.New(c)
+		if err != nil {
+			return nil, tracer.Mask(err)
+		}
+	}
+
 	var ventureResolver *venture.Resolver
 	{
 		c := venture.Config{
@@ -83,6 +98,7 @@ func New(config Config) (*Resolver, error) {
 		message:  messageResolver,
 		timeline: timelineResolver,
 		update:   updateResolver,
+		user:     userResolver,
 		venture:  ventureResolver,
 	}
 
@@ -99,6 +115,10 @@ func (r *Resolver) Timeline() permission.Resolver {
 
 func (r *Resolver) Update() permission.Resolver {
 	return r.update
+}
+
+func (r *Resolver) User() permission.Resolver {
+	return r.user
 }
 
 func (r *Resolver) Venture() permission.Resolver {
