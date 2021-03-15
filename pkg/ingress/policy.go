@@ -10,6 +10,7 @@ import (
 
 var (
 	policy = [][]label.Label{
+		{role.Any /*******/, action.Create /***/, visibility.Any /*******/, resource.User /*******/},
 		{role.Any /*******/, action.Create /***/, visibility.Any /*******/, resource.Venture /****/},
 		{role.Member /****/, action.Create /***/, visibility.Any /*******/, resource.Message /****/},
 		{role.Member /****/, action.Create /***/, visibility.Any /*******/, resource.Update /*****/},

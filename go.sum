@@ -56,8 +56,8 @@ github.com/stretchr/testify v1.5.1/go.mod h1:5W2xD1RspED5o8YsWQXVCued0rvSQ+mT+I5
 github.com/stretchr/testify v1.6.1 h1:hDPOHmpOpP40lSULcqw7IrRb/u7w6RpDC9399XyoNd0=
 github.com/stretchr/testify v1.6.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
 github.com/stvp/tempredis v0.0.0-20181119212430-b82af8480203/go.mod h1:oqN97ltKNihBbwlX8dLpwxCl3+HnXKV/R0e+sRLd9C8=
-github.com/venturemark/apicommon v0.3.1-0.20210313105101-aaf13d15dd7b h1:NqLGFklEDC4KayTEGU/OdoyP1tYyTDvR4qNvbm0zZmA=
-github.com/venturemark/apicommon v0.3.1-0.20210313105101-aaf13d15dd7b/go.mod h1:Nt753vuwZzoTgqOJn42QWnCXJqxdWmoemykm0ZKZkH4=
+github.com/venturemark/apicommon v0.3.1-0.20210315214145-36d3facf4d14 h1:4Hmu6YV65DILo49tgzqet8cXmdesN03gqTtGeyqLp8s=
+github.com/venturemark/apicommon v0.3.1-0.20210315214145-36d3facf4d14/go.mod h1:ZMX36rBOB00RXCDdE3Jfe0uC9HNHyOwveD3ad874KuI=
 github.com/xh3b4sd/logger v0.1.2 h1:zEE3obzyrGofvTNbT+T2U654e9XwqmGbzyktdRB1BR8=
 github.com/xh3b4sd/logger v0.1.2/go.mod h1:/mTz2elyBeH3rPq5vEqAJRWYt/6huhY/b3Hrzych2GE=
 github.com/xh3b4sd/redigo v0.16.0 h1:PojjFc1hDcgRQVX8ipjpl3x7XVh4fVlLgqaV0zMMwps=
