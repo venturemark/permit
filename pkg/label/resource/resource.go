@@ -7,5 +7,6 @@ const (
 	Message  label.Label = "resource:message"
 	Timeline label.Label = "resource:timeline"
 	Update   label.Label = "resource:update"
+	User     label.Label = "resource:user"
 	Venture  label.Label = "resource:venture"
 )
