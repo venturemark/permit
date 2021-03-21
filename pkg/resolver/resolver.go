@@ -6,6 +6,7 @@ import (
 	"github.com/xh3b4sd/tracer"
 
 	"github.com/venturemark/permission"
+	"github.com/venturemark/permission/pkg/resolver/invite"
 	"github.com/venturemark/permission/pkg/resolver/message"
 	"github.com/venturemark/permission/pkg/resolver/timeline"
 	"github.com/venturemark/permission/pkg/resolver/update"
@@ -19,15 +20,29 @@ type Config struct {
 }
 
 type Resolver struct {
-	message  *message.Resolver
-	timeline *timeline.Resolver
-	update   *update.Resolver
-	user     *user.Resolver
-	venture  *venture.Resolver
+	invite   permission.Resource
+	message  permission.Resource
+	timeline permission.Resource
+	update   permission.Resource
+	user     permission.Resource
+	venture  permission.Resource
 }
 
 func New(config Config) (*Resolver, error) {
 	var err error
+
+	var inviteResolver *invite.Resolver
+	{
+		c := invite.Config{
+			Logger: config.Logger,
+			Redigo: config.Redigo,
+		}
+
+		inviteResolver, err = invite.New(c)
+		if err != nil {
+			return nil, tracer.Mask(err)
+		}
+	}
 
 	var messageResolver *message.Resolver
 	{
@@ -95,6 +110,7 @@ func New(config Config) (*Resolver, error) {
 	}
 
 	r := &Resolver{
+		invite:   inviteResolver,
 		message:  messageResolver,
 		timeline: timelineResolver,
 		update:   updateResolver,
@@ -105,22 +121,26 @@ func New(config Config) (*Resolver, error) {
 	return r, nil
 }
 
-func (r *Resolver) Message() permission.Resolver {
+func (r *Resolver) Invite() permission.Resource {
+	return r.invite
+}
+
+func (r *Resolver) Message() permission.Resource {
 	return r.message
 }
 
-func (r *Resolver) Timeline() permission.Resolver {
+func (r *Resolver) Timeline() permission.Resource {
 	return r.timeline
 }
 
-func (r *Resolver) Update() permission.Resolver {
+func (r *Resolver) Update() permission.Resource {
 	return r.update
 }
 
-func (r *Resolver) User() permission.Resolver {
+func (r *Resolver) User() permission.Resource {
 	return r.user
 }
 
-func (r *Resolver) Venture() permission.Resolver {
+func (r *Resolver) Venture() permission.Resource {
 	return r.venture
 }
