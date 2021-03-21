@@ -4,7 +4,7 @@ import "github.com/venturemark/permission/pkg/label"
 
 type Gateway interface {
 	Ingress() Ingress
-	Resource() Resource
+	Resolver() Resolver
 }
 
 type Ingress interface {
