@@ -4,22 +4,23 @@ import "github.com/venturemark/permission/pkg/label"
 
 type Gateway interface {
 	Ingress() Ingress
-	Resource() Resource
+	Resolver() Resolver
 }
 
 type Ingress interface {
 	Match(l ...label.Label) bool
 }
 
-type Resource interface {
-	Message() Resolver
-	Timeline() Resolver
-	Update() Resolver
-	User() Resolver
-	Venture() Resolver
+type Resolver interface {
+	Invite() Resource
+	Message() Resource
+	Timeline() Resource
+	Update() Resource
+	User() Resource
+	Venture() Resource
 }
 
-type Resolver interface {
+type Resource interface {
 	Role(met map[string]string) (string, error)
 	Visibility(met map[string]string) (string, error)
 }
