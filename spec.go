@@ -12,6 +12,7 @@ type Ingress interface {
 }
 
 type Resource interface {
+	Invite() Resolver
 	Message() Resolver
 	Timeline() Resolver
 	Update() Resolver

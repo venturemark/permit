@@ -15,6 +15,7 @@ var (
 		{role.Member /****/, action.Create /***/, visibility.Any /*******/, resource.Message /****/},
 		{role.Member /****/, action.Create /***/, visibility.Any /*******/, resource.Update /*****/},
 		{role.Member /****/, action.Create /***/, visibility.Any /*******/, resource.Timeline /***/},
+		{role.Owner /*****/, action.Create /***/, visibility.Any /*******/, resource.Invite /*****/},
 		{role.Owner /*****/, action.Create /***/, visibility.Any /*******/, resource.Message /****/},
 		{role.Owner /*****/, action.Create /***/, visibility.Any /*******/, resource.Update /*****/},
 		{role.Owner /*****/, action.Create /***/, visibility.Any /*******/, resource.Timeline /***/},
