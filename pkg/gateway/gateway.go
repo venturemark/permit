@@ -8,25 +8,25 @@ import (
 
 type Config struct {
 	Ingress  permission.Ingress
-	Resource permission.Resource
+	Resolver permission.Resolver
 }
 
 type Gateway struct {
 	ingress  permission.Ingress
-	resource permission.Resource
+	resolver permission.Resolver
 }
 
 func New(config Config) (*Gateway, error) {
 	if config.Ingress == nil {
 		return nil, tracer.Maskf(invalidConfigError, "%T.Ingress must not be empty", config)
 	}
-	if config.Resource == nil {
-		return nil, tracer.Maskf(invalidConfigError, "%T.Resource must not be empty", config)
+	if config.Resolver == nil {
+		return nil, tracer.Maskf(invalidConfigError, "%T.Resolver must not be empty", config)
 	}
 
 	g := &Gateway{
 		ingress:  config.Ingress,
-		resource: config.Resource,
+		resolver: config.Resolver,
 	}
 
 	return g, nil
@@ -36,6 +36,6 @@ func (g *Gateway) Ingress() permission.Ingress {
 	return g.ingress
 }
 
-func (g *Gateway) Resource() permission.Resource {
-	return g.resource
+func (g *Gateway) Resolver() permission.Resolver {
+	return g.resolver
 }
