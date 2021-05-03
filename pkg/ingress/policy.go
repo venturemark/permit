@@ -27,6 +27,7 @@ var (
 		{role.Any /*******/, action.Search /***/, visibility.Public /****/, resource.Any /********/},
 		{role.Member /****/, action.Search /***/, visibility.Private /***/, resource.Any /********/},
 		{role.Owner /*****/, action.Search /***/, visibility.Private /***/, resource.Any /********/},
+		{role.Reader /****/, action.Search /***/, visibility.Private /***/, resource.Any /********/},
 
 		{role.Owner /*****/, action.Update /***/, visibility.Any /*******/, resource.Any /********/},
 	}
