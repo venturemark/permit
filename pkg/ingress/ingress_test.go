@@ -164,6 +164,15 @@ func Test_Ingress_Match_false(t *testing.T) {
 				role.Member,
 			},
 		},
+		// Case 18
+		{
+			l: []label.Label{
+				resource.Message,
+				visibility.Private,
+				action.Create,
+				role.Reader,
+			},
+		},
 	}
 
 	for i, tc := range testCases {
@@ -298,6 +307,15 @@ func Test_Ingress_Match_true(t *testing.T) {
 				visibility.Private,
 				action.Create,
 				role.Owner,
+			},
+		},
+		// Case 12
+		{
+			l: []label.Label{
+				resource.Message,
+				visibility.Private,
+				action.Search,
+				role.Reader,
 			},
 		},
 	}
